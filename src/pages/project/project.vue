@@ -1,5 +1,6 @@
 <script>
 import { mapGetters } from 'vuex'
+import firebase from 'firebase/app'
 
 export default {
   name: 'PageProject',
@@ -16,12 +17,7 @@ export default {
       //   { id: 3, category: 'development', title: 'Create new date picker' },
       //   { id: 4, category: 'blog', title: 'New blog post for eSteem' }
       // ]
-      contributors: [
-        { id: 1 },
-        { id: 2 },
-        { id: 3 },
-        { id: 4 }
-      ]
+      contributors: []
     }
   },
   filters: {
@@ -36,6 +32,15 @@ export default {
       this.project = querySnapshot.docs[0].data()
       this.loading = false
     },
+    async loadContributors () {
+      const call = firebase.functions().httpsCallable(`/api/projects/contributors?q=${this.$route.params.name}`)
+      await call()
+        .then((result) => {
+          this.contributors = result.data
+        })
+        .catch((err) => console.log(err))
+      console.log(this.contributors)
+    },
     goToRepo () {
       window.open(`https://github.com/${this.project.platforms.github.repository}`, '_blank')
     },
@@ -48,6 +53,7 @@ export default {
   },
   created () {
     this.loadProject()
+    this.loadContributors()
   }
 }
 </script>

@@ -10,13 +10,7 @@ export default {
   data () {
     return {
       loading: true,
-      contributors: [
-        { id: 1, name: 'icaro', numberOfContributions: 17 },
-        { id: 2, name: 'hernandev', numberOfContributions: 23 },
-        { id: 3, name: 'elear', numberOfContributions: 12 },
-        { id: 4, name: 'espoem', numberOfContributions: 91 },
-        { id: 5, name: 'mkt', numberOfContributions: 21 }
-      ]
+      contributors: []
     }
   },
   methods: {
