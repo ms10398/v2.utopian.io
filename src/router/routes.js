@@ -12,7 +12,8 @@ export default [
         component: () => import('src/pages/profile/profile'),
         children: [
           {path: '/', redirect: 'contributions'},
-          {path: 'contributions', name: 'profile.contributions', component: () => import('src/pages/profile/contributions/contributions')},
+          {path: 'contributions/:category', name: 'profile.contributions', component: () => import('src/pages/profile/contributions/contributions')},
+          {path: 'contributions', redirect: 'contributions/all'},
           {path: 'followers', name: 'profile.followers', component: () => import('src/pages/profile/follow/follow'), meta: {type: 'followers'}},
           {path: 'following', name: 'profile.following', component: () => import('src/pages/profile/follow/follow'), meta: {type: 'following'}}
         ]
@@ -46,10 +47,13 @@ export default [
         name: 'project',
         component: () => import('src/pages/project/project'),
         children: [
+          {path: '/', redirect: 'contributions/all'},
+          {path: 'contributions', redirect: 'contributions/all'},
           {path: 'details', name: 'project.details', component: () => import('src/pages/project/details/details')},
-          {path: 'contributions', name: 'project.contributions', component: () => import('src/pages/project/contributions/contributions')},
+          {path: 'contributions/:category', name: 'project.contributions', component: () => import('src/pages/project/contributions/contributions')},
           {path: 'contributors', name: 'project.contributors', component: () => import('src/pages/project/contributors/contributors')},
-          {path: 'tasks', name: 'project.tasks', component: () => import('src/pages/project/tasks/tasks')}
+          {path: 'tasks', name: 'project.tasks', component: () => import('src/pages/project/tasks/tasks')},
+          {path: 'updates', name: 'project.updates', component: () => import('src/pages/project/updates/updates')}
         ]
       },
       {
@@ -92,6 +96,12 @@ export default [
         path: 'create',
         name: 'create',
         component: () => import('src/pages/contributions/create/create'),
+        meta: {weight: 10}
+      },
+      {
+        path: 'contributions/:author/:permlink/edit',
+        name: 'contributions.edit',
+        component: () => import('src/pages/contributions/edit/edit'),
         meta: {weight: 10}
       },
       {

@@ -33,13 +33,11 @@ export default {
       this.loading = false
     },
     async loadContributors () {
-      const call = firebase.functions().httpsCallable(`/api/projects/contributors?q=${this.$route.params.name}`)
-      await call()
+      await firebase.functions().httpsCallable(`/api/projects/contributors?q=${this.$route.params.name}`)()
         .then((result) => {
           this.contributors = result.data
         })
         .catch((err) => console.log(err))
-      console.log(this.contributors)
     },
     goToRepo () {
       window.open(`https://github.com/${this.project.platforms.github.repository}`, '_blank')

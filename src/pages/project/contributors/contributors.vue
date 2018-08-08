@@ -16,13 +16,11 @@ export default {
   methods: {
     async loadInitial () {
       this.loading = true
-      const call = firebase.functions().httpsCallable(`/api/projects/contributors?q=${this.$route.params.name}`)
-      await call()
+      await firebase.functions().httpsCallable(`/api/projects/contributors?q=${this.$route.params.name}`)()
         .then((result) => {
           this.contributors = result.data
         })
         .catch((err) => console.log(err))
-      console.log(this.contributors)
     }
   },
   mounted () {
